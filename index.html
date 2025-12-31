@@ -17,20 +17,13 @@ body{
 }
 
 /* Fireworks */
-canvas{
-    position:fixed;
-    inset:0;
-    z-index:0;
-}
+canvas{position:fixed;inset:0;z-index:0}
 
 /* Welcome */
 #welcome{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
+    position:fixed;inset:0;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
     background:radial-gradient(circle,#ff69b4,#1a1a2e);
     z-index:10;
     animation:fadeOut 1s ease 4s forwards;
@@ -80,11 +73,7 @@ h2{text-align:center;color:#ff69b4;margin-bottom:20px}
 }
 
 /* Countdown */
-#timer{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-}
+#timer{display:flex;justify-content:center;gap:15px}
 .time{
     padding:15px;
     background:rgba(255,255,255,0.15);
@@ -106,43 +95,43 @@ button{
 
 /* Popup */
 #popup{
-    position:fixed;
-    inset:0;
+    position:fixed;inset:0;
     background:rgba(0,0,0,0.8);
     display:flex;
     justify-content:center;
     align-items:center;
     opacity:0;
     pointer-events:none;
-    transition:.5s;
+    transition:.4s;
     z-index:20;
 }
-#popup.show{
-    opacity:1;
-    pointer-events:auto;
-}
+#popup.show{opacity:1;pointer-events:auto}
 #popup-content{
     background:#1a1a2e;
-    padding:30px;
+    padding:25px;
     border-radius:20px;
+    max-width:90%;
     text-align:center;
-    transform:scale(0);
-    animation:pop .5s forwards;
+    animation:pop .4s forwards;
 }
-@keyframes pop{to{transform:scale(1)}}
+@keyframes pop{from{transform:scale(.6)}to{transform:scale(1)}}
 
-/* No button */
+/* NO prank */
 #no{position:relative}
 
 /* Secret */
 #secret{display:none;color:#ff69b4;font-size:1.3rem;margin-top:10px}
 
 /* Music */
-#music{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    z-index:5;
+#music{position:fixed;bottom:20px;right:20px;z-index:5}
+
+/* 📱 MOBILE POLISH */
+@media (max-width:768px){
+    #welcome h1{font-size:2.4rem;text-align:center}
+    h2{font-size:1.4rem}
+    section{margin:40px 0;padding:20px}
+    button{padding:14px 26px;font-size:1rem}
+    #typewriter{font-size:1.4rem}
 }
 </style>
 </head>
@@ -153,7 +142,9 @@ button{
 
 <div id="welcome">
     <h1>Happy New Year Sakshuuu 💖</h1>
-    <p>Let’s make this year magical ✨</p>
+    <br>
+    <p>Let’s make this year magical together ✨</p>
+    <p>Another year, another chance to grow, laugh, and build more memories together 🌸❤️</p>
 </div>
 
 <div id="main">
@@ -163,14 +154,7 @@ button{
 <p id="typewriter"></p>
 </section>
 
-<section>
-<h2>Our Memories 📸</h2>
-<div id="gallery">
-<img src="https://picsum.photos/400/300?1">
-<img src="https://picsum.photos/400/300?2">
-<img src="https://picsum.photos/400/300?3">
-</div>
-</section>
+
 
 <section>
 <h2>New Year Countdown ⏳</h2>
@@ -184,14 +168,7 @@ button{
 
 <section style="text-align:center">
 <h2>Something Special 💖</h2>
-<button onclick="openPopup()">Open My Heart</button>
-</section>
-
-<section>
-<h2>Our Journey 🥰</h2>
-<div class="timeline-item">The day we met 💕</div>
-<div class="timeline-item">Our late night talks 🌙</div>
-<div class="timeline-item">Still choosing you ❤️</div>
+<button onclick="openPopup('special')">Open it</button>
 </section>
 
 <section style="text-align:center">
@@ -205,26 +182,22 @@ button{
 <input type="password" id="pass" placeholder="Enter secret">
 <br><br>
 <button onclick="check()">Reveal</button>
-<div id="secret">I love you forever ❤️</div>
+<div id="secret">In your sunshine I will smile with you ☀️<br>In storms I will stand beside you 🌧️<br>Always ❤️</div>
 </section>
 
 </div>
 
+<!-- Popup -->
 <div id="popup">
 <div id="popup-content">
-<p>
-In your sunshine I will smile with you ☀️  
-In your storms I will stand beside you 🌧️  
-No matter what the situation is —  
-I'm staying ❤️
-</p>
-<br>
+<p id="popupText"></p><br>
 <button onclick="closePopup()">Close</button>
 </div>
 </div>
 
+<!-- Music -->
 <div id="music">
-<audio id="song" loop>
+<audio id="song" autoplay muted loop>
 <source src="your-song.mp3" type="audio/mp3">
 </audio>
 <button onclick="toggleMusic()">🎵</button>
@@ -232,10 +205,12 @@ I'm staying ❤️
 
 <script>
 // Show main
-setTimeout(()=>{document.getElementById("main").style.display="block"},4500);
+setTimeout(()=>main.style.display="block",4500);
 
 // Typewriter
-const text="You made my year beautiful. I can’t wait to love you more every day. Happy New Year ❤️";
+
+const text = "I just want you to know that you are not alone in anything you are going through. Whatever weighs on your heart, you do not have to carry it by yourself. I am here with you — in your quiet moments, in your difficult days, and in the times when words feel hard to find. \n\nIf you have shed tears, I truly hope the days ahead slowly turn them into smiles, laughter, and peace. You deserve happiness, warmth, and moments that make your heart feel light again. And if the road feels heavy sometimes, I will walk beside you, step by step. \n\nI may not have all the right answers, but I have patience, care, and a heart that wants to see you happy. Iam with you — not just in the good times, but in every moment where you need someone to stay 🤍🌸❤️";
+
 let i=0;
 (function type(){
     if(i<text.length){
@@ -245,58 +220,71 @@ let i=0;
 })();
 
 // Countdown
-const ny=new Date("Jan 1, 2026 00:00:00").getTime();
+const ny=new Date("Jan 1, 2026").getTime();
 setInterval(()=>{
     const d=ny-Date.now();
-    document.getElementById("d").innerText=Math.floor(d/86400000);
-    document.getElementById("h").innerText=Math.floor(d/3600000)%24;
-    document.getElementById("m").innerText=Math.floor(d/60000)%60;
-    document.getElementById("s").innerText=Math.floor(d/1000)%60;
+    d>=0 && (
+        dSpan.innerText=Math.floor(d/86400000),
+        hSpan.innerText=Math.floor(d/3600000)%24,
+        mSpan.innerText=Math.floor(d/60000)%60,
+        sSpan.innerText=Math.floor(d/1000)%60
+    );
 },1000);
 
-// Popup
-function openPopup(){popup.classList.add("show")}
+// Popup messages
+function openPopup(type){
+    popup.classList.add("show");
+    popupText.innerHTML = type==="special"
+        ? "This year taught me many things, but the best lesson was how beautiful life feels when you’re part of it 💕 💖"
+        : "I toh know this 💕 ";
+}
 function closePopup(){popup.classList.remove("show")}
+
+// YES action
+yes.onclick=()=>{
+    openPopup("stay");
+    launchFireworks();
+};
+
+// NO prank (mobile safe)
+no.onmouseover=()=>{
+    no.style.left=Math.random()*60+"%";
+    no.style.top=Math.random()*60+"%";
+};
 
 // Secret
 function check(){
-    pass.value==="love"
+    pass.value==="you"
     ? secret.style.display="block"
     : alert("Wrong secret 😜");
 }
 
-// Music
+// Music autoplay safe
 function toggleMusic(){
+    song.muted=false;
     song.paused ? song.play() : song.pause();
 }
+document.body.addEventListener("click",()=>{song.muted=false;song.play()},{once:true});
 
-// NO button prank
-no.onmouseover=()=>{
-    no.style.position="absolute";
-    no.style.left=Math.random()*70+"%";
-    no.style.top=Math.random()*70+"%";
-};
-
-// Fireworks
+// Fireworks (mobile optimized)
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth;canvas.height=innerHeight;
 let particles=[];
-yes.onclick=()=>{
-    openPopup();
+function launchFireworks(){
     setInterval(()=>{
-        for(let i=0;i<60;i++){
+        for(let i=0;i<30;i++){
             particles.push({
                 x:Math.random()*canvas.width,
                 y:Math.random()*canvas.height/2,
-                dx:(Math.random()-.5)*6,
-                dy:(Math.random()-.5)*6,
-                life:100,
+                dx:(Math.random()-.5)*4,
+                dy:(Math.random()-.5)*4,
+                life:80,
                 c:`hsl(${Math.random()*360},100%,60%)`
             });
         }
     },900);
-};
+}
 (function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     particles.forEach((p,i)=>{
@@ -309,6 +297,9 @@ yes.onclick=()=>{
     });
     requestAnimationFrame(animate);
 })();
+
+// shortcuts
+const dSpan=d,hSpan=h,mSpan=m,sSpan=s;
 </script>
 
 </body>
